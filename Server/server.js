@@ -33,13 +33,9 @@ app.use(
 );
 
 
-// Connect to MongoDB
-await connectDb();
 
-// Start server
-app.listen(3000, () => {
-    console.log("Server running on port 3000");
-});
+// Connect to MongoDB
+connectDb();
 
 //sessions
 app.use(session({
@@ -1776,6 +1772,13 @@ app.post('/entries/:entryId/comments/:commentId/likes', async (req, res) => {
             error: "Server error"
         });
     }
+});
+
+
+
+// Start server
+app.listen(3000, () => {
+    console.log("Server running on port 3000");
 });
 
 let feedbackArray = [];

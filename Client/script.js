@@ -1,6 +1,8 @@
 // frontend config
 
-const API_URL = "https://soulink-hujn.onrender.com";
+
+const API_URL = "http://192.168.1.9:3000"
+
 
 //top
 
