@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require("express");
 const bcrypt = require("bcrypt"); //password hashing
 const { connectDb, getDb } = require("./db");
@@ -9,6 +10,9 @@ const multer = require("multer"); //for photos
 
 const app = express();
 app.use(express.json());
+
+console.log(process.env.MONGO_URI); // To check if the Mongo URI is correctly loaded
+console.log(process.env.MONGODB_DB); // To check if the database name is correctly loaded
 
 
 const cors = require("cors");
@@ -1787,8 +1791,9 @@ app.post('/entries/:entryId/comments/:commentId/likes', async (req, res) => {
 
 
 // Start server
-app.listen(3000, () => {
-    console.log("Server running on port 3000");
+const PORT = process.env.PORT || 3000;  // Default to 3000 if PORT is not set
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
 });
 
 let feedbackArray = [];
