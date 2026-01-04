@@ -1,12 +1,13 @@
 require('dotenv').config();
 const express = require("express");
-const bcrypt = require("bcrypt"); //password hashing
+const bcrypt = require("bcrypt");
 const { connectDb, getDb } = require("./db");
-const fs = require("fs"); //dealing with files
 const path = require("path");
-const { ObjectId } = require("bson"); //mongodb
+const { ObjectId } = require("bson");
 const session = require("express-session");
-const multer = require("multer"); //for photos
+const MongoStore = require("connect-mongo"); // Persistent session store
+const multer = require("multer");
+const cors = require("cors");
 
 const app = express();
 app.use(express.json());
@@ -15,51 +16,52 @@ console.log(process.env.MONGO_URI); // To check if the Mongo URI is correctly lo
 console.log(process.env.MONGODB_DB); // To check if the database name is correctly loaded
 
 
-const cors = require("cors");
+app.use(cors({
+    origin: process.env.CLIENT_URL || '*', // e.g., https://soulink-hujn.onrender.com
+    credentials: true
+}));
 
-app.use(cors());  // Allow all origins, can be restricted further
-
-
-
-//Connect to client folder files
+// Serve client files
 app.use(express.static(path.join(__dirname, "..", "Client")));
-
-//get images
 app.use(express.static(path.join(__dirname, "public")));
+app.use("/profile-pics", express.static(path.join(__dirname, "..", "Client", "Client Uploads", "Profile Pics")));
+app.use("/entry-pics", express.static(path.join(__dirname, "..", "Client", "Client Uploads", "Entry Pics")));
+
 
 //Opens index.html at the first page
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "..", "Client", "index.html"));
 });
 
-
-// Serve profile pics from a URL
-app.use(
-    "/profile-pics",
-    express.static(path.join(__dirname, "..", "Client", "Client Uploads", "Profile Pics"))
-);
-
-
-
-app.use(
-    "/entry-pics/",
-    express.static(path.join(__dirname, "..", "Client", "Client Uploads", "Entry Pics"))
-);
-
-
-
-// Connect to MongoDB
-connectDb();
-
-//sessions
 app.use(session({
-    secret: "bjkhw4t53y8tuhsih",
+    secret: process.env.SESSION_SECRET || "supersecret",
     resave: false,
     saveUninitialized: false,
+    store: MongoStore.create({
+        mongoUrl: process.env.MONGO_URI,
+        dbName: process.env.MONGODB_DB,
+        collectionName: "sessions"
+    }),
     cookie: {
-        makeAge: 100 * 60 * 60 * 24
+        maxAge: 1000 * 60 * 60 * 24 * 7 // 7 days
     }
 }));
+
+
+
+// Start server AFTER MongoDB connection
+async function startServer() {
+    try {
+        await connectDb(); // wait for MongoDB Atlas
+        const PORT = process.env.PORT || 3000;
+        app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+    } catch (err) {
+        console.error("Failed to connect to MongoDB", err);
+        process.exit(1);
+    }
+}
+
+startServer();
 
 //PROFILE PIC STORAGE
 const photoStorage = multer.diskStorage({
@@ -1786,14 +1788,6 @@ app.post('/entries/:entryId/comments/:commentId/likes', async (req, res) => {
             error: "Server error"
         });
     }
-});
-
-
-
-// Start server
-const PORT = process.env.PORT || 3000;  // Default to 3000 if PORT is not set
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
 });
 
 let feedbackArray = [];
