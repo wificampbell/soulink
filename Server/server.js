@@ -34,16 +34,16 @@ app.get("/", (req, res) => {
 });
 
 app.use(session({
-    secret: process.env.SESSION_SECRET || "supersecret",
+    secret: process.env.SESSION_SECRET || "lllooovvveee1233477",
     resave: false,
     saveUninitialized: false,
-    store: MongoStore.create({
-        mongoUrl: process.env.MONGO_URI,
-        dbName: process.env.MONGODB_DB,
-        ttl: 14 * 24 * 60 * 60 //14 days
+    store: new MongoStore({
+        mongoUrl: process.env.MONGO_URI, // MongoDB URI from your environment variables
+        dbName: process.env.MONGODB_DB,   // Database name from your environment variables
+        ttl: 14 * 24 * 60 * 60           // session TTL (14 days in seconds)
     }),
     cookie: {
-        maxAge: 1000 * 60 * 60 * 24 * 7 // 7 days
+        maxAge: 1000 * 60 * 60 * 24, // 1 day
     }
 }));
 
