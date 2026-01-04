@@ -1,6 +1,6 @@
 // frontend config
 
-const IS_DEV = false; 
+const IS_DEV = true; // set to false when deployed
 
 const API_URL = IS_DEV
   ? "http://localhost:3000"
