@@ -67,17 +67,6 @@ async function startServer() {
 
 startServer();
 
-
-//testing for Render:
-console.log("ENV CHECK:", {
-  NODE_ENV: process.env.NODE_ENV,
-  SESSION_SECRET: !!process.env.SESSION_SECRET,
-  MONGODB_URL: !!process.env.MONGODB_URL
-});
-
-
-
-
 //PROFILE PIC STORAGE
 const photoStorage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -1846,6 +1835,7 @@ app.post('/feedback', async (req, res) => {
 
 });
 
+//bottom
 /*
 cd "/Users/wificampbell/Desktop/Coding Projects/Journaling App/Server"
 node server.js

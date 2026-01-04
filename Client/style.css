@@ -1656,9 +1656,13 @@ input {
 }
 
 #profile-toggle-theme {
-    transform: translate(20px, -82px);
+    position: fixed;
+    top: 14%; 
+    right: 20px; 
     color: var(--profile-color);
+    z-index: 1000; 
 }
+
 
 
 

@@ -197,6 +197,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         if (!currentUserId) {
             showDisplaySection(registerLoginSection);
             loginForm.style.display = "flex";
+            bottomNavBar.style.display = "none";
             registrationForm.style.display = "none";
             link.textContent = "Register Here!";
             haveAccount.textContent = "Don't Have An Account?"
@@ -226,6 +227,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         else if (section === registerLoginSection) {
             showDisplaySection(registerLoginSection)
             loginForm.style.display = "flex";
+            bottomNavBar.style.display = "none";
             registrationForm.style.display = "none";
             link.textContent = "Register Here!";
             haveAccount.textContent = "Don't Have An Account?"
@@ -242,6 +244,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         showDisplaySection(registerLoginSection);
         loginForm.style.display = "flex";
+        bottomNavBar.style.display = "none";
         registrationForm.style.display = "none";
         link.textContent = "Register Here!";
         haveAccount.textContent = "Don't Have An Account?"
@@ -287,6 +290,7 @@ registrationForm.addEventListener("submit", async function (e) {
         await createAlert("Account Created!", "You Can Now Log In!");
         registrationForm.reset();
         loginForm.style.display = "flex";
+        bottomNavBar.style.display = "none";
         link.textContent = "Register Here!";
         haveAccount.textContent = "Don't Have An Account?"
         regOrLogin.textContent = "Please Login Here."
@@ -391,10 +395,12 @@ loginForm.addEventListener("submit", async function (e) {
         }
 
         loginForm.reset();
-        localStorage.setItem("activePage", "home-page");
+        bottomNavBar.style.display = "block";
+        localStorage.setItem("activePage", "profile-page");
         updateProfileColors();
-        showDisplaySection(mainFeedSection);
-        showHomePage();
+        showDisplaySection(userProfilePageSection);
+        updateProfilePage();
+        displayRecentPosts();
 
         bottomNavBar.style.display = "flex";
 
@@ -411,6 +417,7 @@ async function redirect() {
     if (!currentUser) {
         showDisplaySection(registerLoginSection);
         loginForm.style.display = "flex";
+        bottomNavBar.style.display = "none";
         registrationForm.style.display = "none";
         bottomNavBar.style.display = "none";
         link.textContent = "Register Here!";
@@ -444,6 +451,7 @@ link.addEventListener("click", () => {
     if (link.textContent === "Login Here!") {
         registrationForm.style.display = "none";
         loginForm.style.display = "flex";
+        bottomNavBar.style.display = "none";
         link.textContent = "Register Here!";
         haveAccount.textContent = "Don't Have An Account?"
         regOrLogin.textContent = "Please Login Here."
@@ -452,6 +460,7 @@ link.addEventListener("click", () => {
     else if (link.textContent === "Register Here!") {
         registrationForm.style.display = "flex";
         loginForm.style.display = "none";
+        bottomNavBar.style.display = "none";
         link.textContent = "Login Here!";
         haveAccount.textContent = "Already Have An Account?"
         regOrLogin.textContent = "Please Register Here."
@@ -542,6 +551,7 @@ profileButton.addEventListener("click", async function () {
         localStorage.setItem("activePage", "register-login-container");
         showDisplaySection(registerLoginSection)
         loginForm.style.display = "flex";
+        bottomNavBar.style.display = "none";
         registrationForm.style.display = "none";
         link.textContent = "Register Here!";
         haveAccount.textContent = "Don't Have An Account?"
@@ -1984,6 +1994,8 @@ async function updateProfilePage() {
             entryAmount.textContent = `${entryCount}`
         };
 
+        updateFriendRequestIcon();
+
     } catch (err) {
         console.error(err);
     }
@@ -2541,9 +2553,11 @@ async function updateFriendRequestIcon() {
     const followers = await getFriendRequests() || [];
     if (followers.length === 0) {
         friendRequestButton.textContent = 'notifications';
+        document.querySelector("#friends-header").textContent = "Friends";
     }
     else {
         friendRequestButton.textContent = 'notification_important';
+        document.querySelector("#friends-header").textContent = "Friends❕";
     }
 }
 
