@@ -40,7 +40,7 @@ app.use(session({
     store: MongoStore.create({
         mongoUrl: process.env.MONGO_URI,
         dbName: process.env.MONGODB_DB,
-        collectionName: "sessions"
+        ttl: 14 * 24 * 60 * 60 //14 days
     }),
     cookie: {
         maxAge: 1000 * 60 * 60 * 24 * 7 // 7 days
