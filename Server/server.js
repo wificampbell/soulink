@@ -33,34 +33,21 @@ app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "..", "Client", "index.html"));
 });
 
+
+
+
+// Connect to MongoDB
+connectDb();
+
+//sessions
 app.use(session({
-    secret: process.env.SESSION_SECRET || "lllooovvveee1233477",
+    secret: "bjkhw4t53y8tuhsih",
     resave: false,
     saveUninitialized: false,
-    store: new MongoStore({
-        mongoUrl: process.env.MONGO_URI, // MongoDB URI from your environment variables
-        dbName: process.env.MONGODB_DB,   // Database name from your environment variables
-        ttl: 14 * 24 * 60 * 60           // session TTL (14 days in seconds)
-    }),
     cookie: {
-        maxAge: 1000 * 60 * 60 * 24, // 1 day
+        makeAge: 100 * 60 * 60 * 24
     }
 }));
-
-
-// Start server AFTER MongoDB connection
-async function startServer() {
-    try {
-        await connectDb(); // wait for MongoDB Atlas
-        const PORT = process.env.PORT || 3000;
-        app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-    } catch (err) {
-        console.error("Failed to connect to MongoDB", err);
-        process.exit(1);
-    }
-}
-
-startServer();
 
 //PROFILE PIC STORAGE
 const photoStorage = multer.diskStorage({
@@ -1787,6 +1774,14 @@ app.post('/entries/:entryId/comments/:commentId/likes', async (req, res) => {
             error: "Server error"
         });
     }
+});
+
+
+
+// Start server
+const PORT = process.env.PORT || 3000;  // Default to 3000 if PORT is not set
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
 });
 
 let feedbackArray = [];
