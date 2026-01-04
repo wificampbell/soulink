@@ -48,7 +48,6 @@ app.use(session({
 }));
 
 
-
 // Start server AFTER MongoDB connection
 async function startServer() {
     try {
