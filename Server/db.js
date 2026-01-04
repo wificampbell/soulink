@@ -10,14 +10,9 @@ let db;
 
 async function connectDb() {
   try {
-    // Setting up connection with TLS options
+    // Simplified connection without deprecated options
     const client = await MongoClient.connect(uri, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      ssl: true,  // Ensure SSL is enabled
-      sslValidate: true,  // Enforce SSL validation
-      tlsAllowInvalidCertificates: false,  // Do not allow invalid certificates
-      tlsAllowInvalidHostnames: false, // Do not allow invalid hostnames
+      ssl: true,  // Make sure SSL is enabled
     });
 
     console.log("MongoDB Connected Successfully");
