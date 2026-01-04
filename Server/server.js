@@ -1,29 +1,17 @@
-require('dotenv').config();
 const express = require("express");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcrypt"); //password hashing
 const { connectDb, getDb } = require("./db");
+const fs = require("fs"); //dealing with files
 const path = require("path");
-const { ObjectId } = require("bson");
+const { ObjectId } = require("bson"); //mongodb
 const session = require("express-session");
-const MongoStore = require("connect-mongo"); // Persistent session store
-const multer = require("multer");
-const cors = require("cors");
+const multer = require("multer"); //for photos
 
 const app = express();
 app.use(express.json());
 
-
-app.use(cors({
-    origin: process.env.CLIENT_URL || '*', // e.g., https://soulink-hujn.onrender.com
-    credentials: true
-}));
-
-// Serve client files
+//Connect to client folder files
 app.use(express.static(path.join(__dirname, "..", "Client")));
-app.use(express.static(path.join(__dirname, "public")));
-app.use("/profile-pics", express.static(path.join(__dirname, "..", "Client", "Client Uploads", "Profile Pics")));
-app.use("/entry-pics", express.static(path.join(__dirname, "..", "Client", "Client Uploads", "Entry Pics")));
-
 
 //Opens index.html at the first page
 app.get("/", (req, res) => {
@@ -31,10 +19,27 @@ app.get("/", (req, res) => {
 });
 
 
+// Serve profile pics from a URL
+app.use(
+    "/profile-pics",
+    express.static(path.join(__dirname, "..", "Client", "Client Uploads", "Profile Pics"))
+);
+
+
+
+app.use(
+    "/entry-pics/",
+    express.static(path.join(__dirname, "..", "Client", "Client Uploads", "Entry Pics"))
+);
 
 
 // Connect to MongoDB
-connectDb();
+await connectDb();
+
+// Start server
+app.listen(3000, () => {
+    console.log("Server running on port 3000");
+});
 
 //sessions
 app.use(session({
@@ -191,7 +196,6 @@ app.post("/login", async (req, res) => {
             username: user.username
         };
 
-        
         return res.json({
             message: "Login successful!",
             user
@@ -1772,14 +1776,6 @@ app.post('/entries/:entryId/comments/:commentId/likes', async (req, res) => {
             error: "Server error"
         });
     }
-});
-
-
-
-// Start server
-const PORT = process.env.PORT || 3000;  // Default to 3000 if PORT is not set
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
 });
 
 let feedbackArray = [];
