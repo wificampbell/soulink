@@ -1,6 +1,11 @@
 const { MongoClient } = require("mongodb");
 
-const url = "mongodb+srv://wificampbell:soulinkpassword@soulinkcluster.ec8cilb.mongodb.net/?appName=soulinkcluster";
+const url = process.env.MONGODB_URL;
+
+if (!url) {
+    throw new Error("MONGODB_URL is missing");
+}
+
 const client = new MongoClient(url); 
 
 let db; 
@@ -12,7 +17,10 @@ async function connectDb(){
 }
 
 function getDb(){
-    return db; 
+    if (!db) {
+        throw new Error("Database not initialized yet");
+    }
+    return db;
 }
 
 module.exports = {

@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const express = require("express");
 const bcrypt = require("bcrypt"); //password hashing
 const { connectDb, getDb } = require("./db");
@@ -8,44 +10,66 @@ const session = require("express-session");
 const multer = require("multer"); //for photos
 
 const app = express();
+
+app.set("trust proxy", 1); // REQUIRED for Render
+
 app.use(express.json());
+
+//sessions
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "none",
+        maxAge: 1000 * 60 * 60 * 24
+    }
+}));
 
 //Connect to client folder files
 app.use(express.static(path.join(__dirname, "..", "Client")));
-
 //Opens index.html at the first page
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "..", "Client", "index.html"));
 });
-
-
 // Serve profile pics from a URL
 app.use(
     "/profile-pics",
     express.static(path.join(__dirname, "..", "Client", "Client Uploads", "Profile Pics"))
 );
-
-
-
 app.use(
     "/entry-pics/",
     express.static(path.join(__dirname, "..", "Client", "Client Uploads", "Entry Pics"))
 );
 
 
+async function startServer() {
+    try {
+        await connectDb();
+        const PORT = process.env.PORT || 3000;
 
-// Connect to MongoDB
-connectDb();
-
-//sessions
-app.use(session({
-    secret: "bjkhw4t53y8tuhsih",
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-        makeAge: 100 * 60 * 60 * 24
+        app.listen(PORT, () => {
+            console.log(`Server running on port ${PORT}`);
+        });
+    } catch (err) {
+        console.error("Failed to start server:", err);
+        process.exit(1);
     }
-}));
+}
+
+startServer();
+
+
+//testing for Render:
+console.log("ENV CHECK:", {
+  NODE_ENV: process.env.NODE_ENV,
+  SESSION_SECRET: !!process.env.SESSION_SECRET,
+  MONGODB_URL: !!process.env.MONGODB_URL
+});
+
+
+
 
 //PROFILE PIC STORAGE
 const photoStorage = multer.diskStorage({
@@ -1772,13 +1796,6 @@ app.post('/entries/:entryId/comments/:commentId/likes', async (req, res) => {
             error: "Server error"
         });
     }
-});
-
-
-
-// Start server
-app.listen(3000, () => {
-    console.log("Server running on port 3000");
 });
 
 let feedbackArray = [];
