@@ -1,5 +1,4 @@
 require("dotenv").config();
-const cors = require("cors");
 const express = require("express");
 const bcrypt = require("bcrypt"); //password hashing
 const { connectDb, getDb } = require("./db");
@@ -18,7 +17,7 @@ app.use(express.json());
 const cors = require("cors");
 
 app.use(cors({
-    origin: "https://soulink-hujn.onrender.com",
+    origin: true,
     credentials: true
 }));
 

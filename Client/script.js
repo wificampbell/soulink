@@ -1,6 +1,3 @@
-// frontend config
-const API_URL = "https://soulink-hujn.onrender.com"
-
 //top
 
 /*NAVIGATION BAR BUTTONS*/
@@ -270,7 +267,7 @@ registrationForm.addEventListener("submit", async function (e) {
     }
 
     try {
-        const response = await fetch(`${API_URL}/register`, {
+        const response = await fetch(`/register`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             credentials: "include",
@@ -373,7 +370,7 @@ loginForm.addEventListener("submit", async function (e) {
     const password = loginPassword.value.trim();
 
     try {
-        const response = await fetch(`${API_URL}/login`, {
+        const response = await fetch(`/login`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             credentials: "include",
@@ -587,7 +584,7 @@ async function displaySidebarJournals() {
     }
 
     try {
-        const response = await fetch(`${API_URL}/journals`,
+        const response = await fetch(`/journals`,
             {
                 headers: { "Content-Type": "application/json" },
                 credentials: "include"
@@ -698,7 +695,7 @@ async function displayJournalEntries(journalId) {
     entriesContainer.innerHTML = "";
 
     try {
-        const response = await fetch(`${API_URL}/journals/${journalId}/entries`, {
+        const response = await fetch(`/journals/${journalId}/entries`, {
             headers: { "Content-Type": "application/json" },
             credentials: "include"
         });
@@ -866,7 +863,7 @@ addJournalButton.addEventListener("click", async function (e) {
 /*CREATE A JOURNAL*/
 createJournalButton.addEventListener("click", async function () {
     try {
-        const response = await fetch(`${API_URL}/journals`, {
+        const response = await fetch(`/journals`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             credentials: "include",
@@ -922,7 +919,7 @@ async function displayUserJournals() {
     }
 
     try {
-        const response = await fetch(`${API_URL}/journals`, {
+        const response = await fetch(`/journals`, {
             headers: { "Content-Type": "application/json" },
             credentials: "include"
         });
@@ -1004,7 +1001,7 @@ async function deleteJournal(journalId) {
         return;
     }
     try {
-        const response = await fetch(`${API_URL}/journals/${journalId}`, {
+        const response = await fetch(`/journals/${journalId}`, {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
             credentials: "include"
@@ -1058,7 +1055,7 @@ submitEntryButton.addEventListener("click", async function () {
             formData.append("entryPhoto", entrySubmittedPhotoFile);
         }
 
-        const response = await fetch(`${API_URL}/journals/${currentJournalId}/entries`,
+        const response = await fetch(`/journals/${currentJournalId}/entries`,
             {
                 method: "POST",
                 credentials: "include",
@@ -1095,7 +1092,7 @@ async function deleteEntry(entryId) {
         return;
     }
     try {
-        const response = await fetch(`${API_URL}/entries/${entryId}`, {
+        const response = await fetch(`/entries/${entryId}`, {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
             credentials: "include"
@@ -1253,7 +1250,7 @@ async function submittedEditEntry(entry, fileInput, isFullyChanged) {
             formData.append("newBackgroundColor", entry.newBackgroundColor);
         }
 
-        const response = await fetch(`${API_URL}/entries/edit`, {
+        const response = await fetch(`/entries/edit`, {
             method: "POST",
             credentials: "include",
             body: formData
@@ -1284,7 +1281,7 @@ async function submittedEditEntry(entry, fileInput, isFullyChanged) {
 //EDIT A JOURNAL
 submitEditJournalButton.addEventListener("click", async function () {
     try {
-        const response = await fetch(`${API_URL}/journals/edit`, {
+        const response = await fetch(`/journals/edit`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             credentials: "include",
@@ -1331,7 +1328,7 @@ async function displayMainFeed(feedType) {
     const feedContainer = document.querySelector(".feed-entries");
     feedContainer.innerHTML = "";
     try {
-        const response = await fetch(`${API_URL}/feed`, {
+        const response = await fetch(`/feed`, {
             credentials: "include"
         });
         const data = await response.json();
@@ -1357,7 +1354,7 @@ async function updateEntryLikes(entry, likeButton, likeElement) {
     }
 
     try {
-        const response = await fetch(`${API_URL}/entries/${entry._id ? entry._id : entry.id}/likes`, {
+        const response = await fetch(`/entries/${entry._id ? entry._id : entry.id}/likes`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             credentials: "include"
@@ -1510,7 +1507,7 @@ async function addComment(commentContent) {
     }
 
     try {
-        const response = await fetch(`${API_URL}/entries/${currentEntry.id ? currentEntry.id : currentEntry._id}/comments`, {
+        const response = await fetch(`/entries/${currentEntry.id ? currentEntry.id : currentEntry._id}/comments`, {
             method: "POST",
             body: JSON.stringify({ commentContent }),
             headers: { "Content-Type": "application/json" },
@@ -1539,7 +1536,7 @@ async function deleteComment(comment) {
     }
 
     try {
-        const response = await fetch(`${API_URL}/entries/${currentEntry._id ? currentEntry._id : currentEntry.id}/comments/${comment._id}`, {
+        const response = await fetch(`/entries/${currentEntry._id ? currentEntry._id : currentEntry.id}/comments/${comment._id}`, {
             method: "DELETE",
             credentials: "include"
         });
@@ -1588,7 +1585,7 @@ function editComment(comment, commentDiv) {
             }
 
             try {
-                const response = await fetch(`${API_URL}/entries/${currentEntry._id ? currentEntry._id : currentEntry.id}/comments/${comment._id}`, {
+                const response = await fetch(`/entries/${currentEntry._id ? currentEntry._id : currentEntry.id}/comments/${comment._id}`, {
                     method: "POST",
                     credentials: "include",
                     headers: { "Content-Type": "application/json" },
@@ -1634,7 +1631,7 @@ async function updateCommentLikes(comment, commentLikeButton, commentLikeElement
 
     try {
 
-        const response = await fetch(`${API_URL}/entries/${currentEntry.id ? currentEntry.id : currentEntry._id}/comments/${comment._id}/likes`, {
+        const response = await fetch(`/entries/${currentEntry.id ? currentEntry.id : currentEntry._id}/comments/${comment._id}/likes`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             credentials: "include"
@@ -1704,7 +1701,7 @@ async function displayRecentPosts() {
     recentPosts.style.display = "flex";
 
     try {
-        const response = await fetch(`${API_URL}/me/entries`, {
+        const response = await fetch(`/me/entries`, {
             headers: { "Content-Type": "application/json" },
             credentials: "include"
         });
@@ -1882,7 +1879,7 @@ function updateCommentsCount(entry, newCount, type) {
 /*UPDATE PROFILE COLORS*/
 async function updateProfileColors() {
     try {
-        const res = await fetch(`${API_URL}/profile`, {
+        const res = await fetch(`/profile`, {
             headers: { "Content-Type": "application/json" },
             credentials: "include"
         });
@@ -1921,7 +1918,7 @@ async function updateProfileColors() {
 /*LOAD PROFILE*/
 async function updateProfilePage() {
     try {
-        const res = await fetch(`${API_URL}/profile`, {
+        const res = await fetch(`/profile`, {
             headers: { "Content-Type": "application/json" },
             credentials: "include"
         });
@@ -1950,13 +1947,13 @@ async function updateProfilePage() {
         userBio.textContent = data.bio || `Hello, nice to meet you!`;
 
 
-        const friendRes = await fetch(`${API_URL}/me/friends`,
+        const friendRes = await fetch(`/me/friends`,
             {
                 headers: { "Content-Type": "application/json" },
                 credentials: "include"
             });
 
-        const entryRes = await fetch(`${API_URL}/me/entries`,
+        const entryRes = await fetch(`/me/entries`,
             {
                 headers: { "Content-Type": "application/json" },
                 credentials: "include"
@@ -2006,7 +2003,7 @@ editProfileForm.addEventListener("submit", async (e) => {
     const newEmail = editEmail.value;
 
     try {
-        const response = await fetch(`${API_URL}/profile`, {
+        const response = await fetch(`/profile`, {
             method: "GET",
             headers: { "Content-Type": "application/json" },
             credentials: "include"
@@ -2058,7 +2055,7 @@ editProfileForm.addEventListener("submit", async (e) => {
 
 
     try {
-        const response = await fetch(`${API_URL}/profile/edit`, {
+        const response = await fetch(`/profile/edit`, {
             method: "POST",
             body: formData,
             credentials: "include"
@@ -2197,7 +2194,7 @@ async function findUserByUsername(username) {
         const foundUsersContainer = document.querySelector(".found-users-container");
         foundUsersContainer.innerHTML = "";
 
-        const response = await fetch(`${API_URL}/users/${username}`, {
+        const response = await fetch(`/users/${username}`, {
             headers: { "Content-Type": "application/json" },
             credentials: "include"
         });
@@ -2223,7 +2220,7 @@ async function findUserByUsername(username) {
 async function getCurrentUserId() {
     //get current userId
     try {
-        const res = await fetch(`${API_URL}/auth/me`, {
+        const res = await fetch(`/auth/me`, {
             headers: { "Content-Type": "application/json" },
             credentials: "include"
         });
@@ -2245,7 +2242,7 @@ async function getCurrentUserId() {
 async function getCurrentUserUsername() {
     //get current userId
     try {
-        const res = await fetch(`${API_URL}/auth/me`, {
+        const res = await fetch(`/auth/me`, {
             headers: { "Content-Type": "application/json" },
             credentials: "include"
         });
@@ -2414,7 +2411,7 @@ async function acceptFriendRequest(userId) {
     }
 
     try {
-        const response = await fetch(`${API_URL}/me/friend-requests/${userId}/accept`, {
+        const response = await fetch(`/me/friend-requests/${userId}/accept`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             credentials: "include"
@@ -2439,7 +2436,7 @@ async function deleteFriend(user) {
     }
 
     try {
-        const response = await fetch(`${API_URL}/users/${user.id}/friend`, {
+        const response = await fetch(`/users/${user.id}/friend`, {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
             credentials: "include"
@@ -2461,7 +2458,7 @@ async function deleteFriend(user) {
 async function cancelFriendRequest(user) {
     if (!user || !user.id) return;
 
-    await fetch(`${API_URL}/users/${user.id}/request`, {
+    await fetch(`/users/${user.id}/request`, {
         method: "DELETE",
         credentials: "include"
     });
@@ -2491,7 +2488,7 @@ async function updateFriendIcon(targetUserId, addFriendButton) {
 /*GET ALL FRIENDS*/
 async function getFriends() {
     try {
-        const response = await fetch(`${API_URL}/me/friends`, {
+        const response = await fetch(`/me/friends`, {
             method: "GET",
             headers: { "Content-Type": "application/json" },
             credentials: "include"
@@ -2514,7 +2511,7 @@ async function getFriends() {
 
 /*GET FOLLOWING*/
 async function getFollowing() {
-    const response = await fetch(`${API_URL}/me/following`, {
+    const response = await fetch(`/me/following`, {
         headers: { "Content-Type": "application/json" },
         credentials: "include"
     });
@@ -2607,7 +2604,7 @@ async function displayFriendRequests() {
             const confirmed = await createConfirmation(`Friend ${reqUser.username}?`);
 
             if (confirmed) {
-                const response = await fetch(`${API_URL}/me/friend-requests/${reqUser.id}/accept`, {
+                const response = await fetch(`/me/friend-requests/${reqUser.id}/accept`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     credentials: "include"
@@ -2625,7 +2622,7 @@ async function displayFriendRequests() {
                 const newMutualFriends = await getFriends() || [];
                 displayUsers(newMutualFriends, showUsersFriends);
             } else {
-                await fetch(`${API_URL}/me/friend-requests/${reqUser.id}/reject`,
+                await fetch(`/me/friend-requests/${reqUser.id}/reject`,
                     {
                         method: "POST",
                         credentials: "include"
@@ -2650,7 +2647,7 @@ async function displayFriendRequests() {
 //SEND FRIEND REQUEST
 async function sendFriendRequest(userId) {
     try {
-        let response = await fetch(`${API_URL}/users/${userId}/request`,
+        let response = await fetch(`/users/${userId}/request`,
             {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -2670,7 +2667,7 @@ async function sendFriendRequest(userId) {
 
 //GET FRIEND REQUESTS
 async function getFriendRequests() {
-    const response = await fetch(`${API_URL}/me/friend-requests`, {
+    const response = await fetch(`/me/friend-requests`, {
         headers: { "Content-Type": "application/json" },
         credentials: "include"
     });
@@ -2706,7 +2703,7 @@ async function sendFeedback(feedbackCategory, feedbackContent) {
         return;
     }
     try {
-        const response = await fetch(`${API_URL}/feedback`, {
+        const response = await fetch(`/feedback`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
