@@ -10,8 +10,18 @@ const multer = require("multer"); //for photos
 const app = express();
 app.use(express.json());
 
+
+const cors = require("cors");
+
+app.use(cors());  // Allow all origins, can be restricted further
+
+
+
 //Connect to client folder files
 app.use(express.static(path.join(__dirname, "..", "Client")));
+
+//get images
+app.use(express.static(path.join(__dirname, "public")));
 
 //Opens index.html at the first page
 app.get("/", (req, res) => {

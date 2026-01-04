@@ -1,12 +1,6 @@
 // frontend config
 
-const IS_DEV = true; // set to false when deployed
-
-const API_URL = IS_DEV
-  ? "http://localhost:3000"
-  : "https://soulink-hujn.onrender.com";
-
-
+const API_URL = "https://soulink-hujn.onrender.com";
 
 //top
 
