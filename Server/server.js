@@ -12,9 +12,6 @@ const cors = require("cors");
 const app = express();
 app.use(express.json());
 
-console.log(process.env.MONGO_URI); // To check if the Mongo URI is correctly loaded
-console.log(process.env.MONGODB_DB); // To check if the database name is correctly loaded
-
 
 app.use(cors({
     origin: process.env.CLIENT_URL || '*', // e.g., https://soulink-hujn.onrender.com
@@ -194,6 +191,7 @@ app.post("/login", async (req, res) => {
             username: user.username
         };
 
+        
         return res.json({
             message: "Login successful!",
             user
