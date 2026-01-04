@@ -1,5 +1,5 @@
 require("dotenv").config();
-
+const cors = require("cors");
 const express = require("express");
 const bcrypt = require("bcrypt"); //password hashing
 const { connectDb, getDb } = require("./db");
@@ -14,6 +14,14 @@ const app = express();
 app.set("trust proxy", 1); // REQUIRED for Render
 
 app.use(express.json());
+
+const cors = require("cors");
+
+app.use(cors({
+    origin: "https://soulink-hujn.onrender.com",
+    credentials: true
+}));
+
 
 //sessions
 app.use(session({

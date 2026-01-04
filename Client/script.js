@@ -1,5 +1,5 @@
 // frontend config
-const API_URL = "http://192.168.1.9:3000"
+const API_URL = "https://soulink-hujn.onrender.com"
 
 //top
 
@@ -273,6 +273,7 @@ registrationForm.addEventListener("submit", async function (e) {
         const response = await fetch(`${API_URL}/register`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
+            credentials: "include",
             body: JSON.stringify({ firstName, lastName, email, username, password })
         });
 
@@ -375,6 +376,7 @@ loginForm.addEventListener("submit", async function (e) {
         const response = await fetch(`${API_URL}/login`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
+            credentials: "include",
             body: JSON.stringify({ username, password })
         });
 
@@ -1329,7 +1331,9 @@ async function displayMainFeed(feedType) {
     const feedContainer = document.querySelector(".feed-entries");
     feedContainer.innerHTML = "";
     try {
-        const response = await fetch(`${API_URL}/feed`);
+        const response = await fetch(`${API_URL}/feed`, {
+            credentials: "include"
+        });
         const data = await response.json();
         const entries = data.entries;
 
@@ -2622,7 +2626,10 @@ async function displayFriendRequests() {
                 displayUsers(newMutualFriends, showUsersFriends);
             } else {
                 await fetch(`${API_URL}/me/friend-requests/${reqUser.id}/reject`,
-                    { method: "POST", credentials: "include" }
+                    {
+                        method: "POST",
+                        credentials: "include"
+                    }
                 );
             }
 
