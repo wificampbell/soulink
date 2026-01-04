@@ -926,7 +926,7 @@ async function displayUserJournals() {
 
         if (journals.length === 0) {
             noJournalsTxt.style.display = "block";
-            noJournalsTxt.textContent = "You have no journals. Press the plus sign at the top left to create one!";
+            noJournalsTxt.textContent = "You have no journals. Press the plus sign at the top right to create one!";
         }
         else {
             noJournalsTxt.style.display = "none";
