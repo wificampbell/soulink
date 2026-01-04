@@ -550,7 +550,7 @@ app.post("/entries/edit", uploadEntryPhoto.single("editEntryPhoto"), async (req,
 
     const { entryId, entryTitle, entryContent, isPublic, isFullyChanged, removePhoto, newBackgroundColor } = req.body;
 
-    if (!entryId) {
+   if (!entryId) {
         return res.status(400).json({
             error: "Entry ID required"
         });
@@ -578,7 +578,8 @@ app.post("/entries/edit", uploadEntryPhoto.single("editEntryPhoto"), async (req,
         if (isPublic !== undefined) {
             updateFields.isPublic = isPublic;
         }
-        if (isFullyChanged === true) {
+
+        if (isFullyChanged === "true") {
             updateFields.edited = true;
             updateFields.editedAt = new Date();
         }
@@ -622,6 +623,7 @@ app.post("/entries/edit", uploadEntryPhoto.single("editEntryPhoto"), async (req,
         return res.status(200).json({
             entry: updatedEntry
         });
+
 
     } catch (err) {
         console.error(err);

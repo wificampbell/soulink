@@ -777,13 +777,17 @@ async function displayJournalEntries(journalId) {
 
                     const newEntry = {
                         _id: entry._id,
-                        newTitle: entry.title,
-                        newContent: entry.content,
-                        editFeedVisibility: "private",
+                        entryTitle: entry.title,
+                        entryContent: entry.content,
+                        isPublic: "private",
                         newPhotoSelected: entry.photo ? entry.photo : null,
+                        isFullyChanged: false
                     };
+
+                    console.log(newEntry);
+
                     editingJournalId = journalData._id;
-                    const response = await submittedEditEntry(newEntry, null, false);
+                    const response = await submittedEditEntry(newEntry, null);
                     if (!response.ok) {
                         await createAlert("Error", "Failed To Edit Entry.");
                         return;
@@ -794,13 +798,14 @@ async function displayJournalEntries(journalId) {
 
                     const newEntry = {
                         _id: entry._id,
-                        newTitle: entry.title,
-                        newContent: entry.content,
-                        editFeedVisibility: "public",
+                        entryTitle: entry.title,
+                        entryContent: entry.content,
+                        isPublic: "public",
                         newPhotoSelected: entry.photo ? entry.photo : null,
+                        isFullyChanged: false
                     };
                     editingJournalId = journalData._id;
-                    const response = await submittedEditEntry(newEntry, null, false);
+                    const response = await submittedEditEntry(newEntry, null);
                     if (!response.ok) {
                         await createAlert("Error", "Failed To Edit Entry.");
                         return;
@@ -1159,67 +1164,43 @@ deletePhotoButton.addEventListener("click", async function () {
     }
 });
 
+
+//normalize text to compare entries
+function normalize(str) {
+    return str.replace(/\r\n/g, '\n').trim();
+}
+
 //EDIT ENTRY
 submitEditEntryButton.addEventListener("click", async function () {
-    const editFeedVisibility = document.querySelector('input[name="edit-feed-visibility"]:checked').value;
     const newTitle = editEntryNameInput.value.trim();
     const newContent = editEntryContentInput.value.trim();
+    const editFeedVisibility = document.querySelector('input[name="edit-feed-visibility"]:checked').value;
+    const newColorInput = editColorInput.value;
     const fileInput = document.getElementById("edit-entry-photo");
     const newPhotoSelected = fileInput.files.length > 0;
-    const newColorInput = editColorInput.value;
 
+    // Determine if anything changed
+    const isFullyChanged =
+        originalEntry.title !== newTitle ||
+        normalize(originalEntry.content) !== normalize(newContent) || 
+        removePhoto === true ||
+        newPhotoSelected === true;
 
-    let isFullyChanged = true;
-
-    //nothing changed 
-    if (
-        originalEntry.title === newTitle &&
-        originalEntry.content === newContent &&
-        originalEntry.isPublic === editFeedVisibility &&
-        removePhoto === false &&
-        originalEntry.backgroundColor === newColorInput &&
-        !newPhotoSelected
-    ) {
-        editEntryPopup.classList.open("open", "immediateclose");
-        editEntryPopup.classList.add("close");
-        return;
-    }
-
-    //only visibility changed
-    if (
-        originalEntry.title === newTitle &&
-        originalEntry.content === newContent &&
-        !newPhotoSelected &&
-        removePhoto === false &&
-        originalEntry.backgroundColor === newColorInput &&
-        originalEntry.isPublic !== editFeedVisibility
-    ) {
-        isFullyChanged = false;
-    }
-
-    //only color changed
-    if (
-        originalEntry.title === newTitle &&
-        originalEntry.content === newContent &&
-        !newPhotoSelected &&
-        removePhoto === false &&
-        originalEntry.backgroundColor !== newColorInput &&
-        originalEntry.isPublic == editFeedVisibility
-    ) {
-        isFullyChanged = false;
-    }
-
+    // Prepare payload for backend
     const newEntry = {
-        _id: originalEntry._id,
-        newTitle,
-        newContent,
-        editFeedVisibility,
-        newPhotoSelected: newPhotoSelected ? newPhotoSelected : null,
-        newBackgroundColor: newColorInput ? newColorInput : null
+        entryId: originalEntry._id,
+        entryTitle: newTitle,
+        entryContent: newContent,
+        isPublic: editFeedVisibility,
+        isFullyChanged: isFullyChanged,
+        removePhoto: removePhoto,
+        entryNewPhoto: newPhotoSelected, 
+        newBackgroundColor: newColorInput || null
     };
 
-    const response = await submittedEditEntry(newEntry, fileInput, isFullyChanged);
+    const response = await submittedEditEntry(newEntry, fileInput);
 
+    // Close the popup
     editEntryPopup.classList.remove("open", "immediateclose");
     editEntryPopup.classList.add("close");
 
@@ -1231,24 +1212,25 @@ submitEditEntryButton.addEventListener("click", async function () {
     editingJournalId = null;
     editingEntryId = null;
     await displayJournalEntries(currentJournalId);
-
-
 });
 
-async function submittedEditEntry(entry, fileInput, isFullyChanged) {
+
+
+
+
+async function submittedEditEntry(entry, fileInput) {
 
     try {
         // FormData for text + optional file
         const formData = new FormData();
         formData.append("journalId", editingJournalId);
-        formData.append("entryId", entry._id);
-        formData.append("entryTitle", entry.newTitle);
-        formData.append("entryContent", entry.newContent);
-        formData.append("isPublic", entry.editFeedVisibility);
-        formData.append("isFullyChanged", isFullyChanged);
-
-
-        if (entry.newPhotoSelected && fileInput && fileInput.files[0]) {
+        formData.append("entryId", entry.entryId ? entry.entryId : entry._id);
+        formData.append("entryTitle", entry.entryTitle);
+        formData.append("entryContent", entry.entryContent);
+        formData.append("isPublic", entry.isPublic);
+        formData.append("isFullyChanged", entry.isFullyChanged);
+        
+        if (entry.entryNewPhoto && fileInput && fileInput.files[0]) {
             formData.append("editEntryPhoto", fileInput.files[0]);
         }
 
