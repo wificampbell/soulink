@@ -1,0 +1,1877 @@
+/*IMPORTING FONT*/
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+/*SYMBOLS*/
+.material-symbols-outlined {
+    color: var(--text);
+    font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 48
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    margin: 0px;
+    font-family: "Indie Flower", cursive;
+    background: var(--bg);
+    color: var(--text);
+    -webkit-overflow-scrolling: touch;
+    box-sizing: border-box;
+
+}
+
+body {
+    min-height: 100vh;
+    overflow-y: scroll;
+}
+
+:root {
+    --bg: white;
+    --text: black;
+    --icon-color: black;
+    --form: rgb(161, 197, 255, 0.30);
+    --profile-border: 5px solid rgb(142, 184, 250);
+    --profile-color: rgb(142, 184, 250);
+    --profile-border-dark: rgb(107, 163, 255);
+}
+
+body.dark {
+    --bg: black;
+    --text: white;
+    --icon-color: black;
+    --form: rgb(161, 197, 255);
+}
+
+
+/*STANDARD HEADINGS*/
+h1 {
+    font-family: "Indie Flower", cursive;
+    font-size: 40px;
+    margin-top: 40px;
+    margin-bottom: 0px;
+    text-align: center;
+    color: rgb(142, 184, 250);
+}
+
+h3 {
+    padding: 0px;
+    margin: 0px;
+}
+
+
+
+
+
+
+
+
+/*POPUPS*/
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 100%);
+    background: var(--profile-color);
+    border-radius: 20px;
+    padding: 30px;
+    width: 400px;
+    max-height: 70%;
+    max-width: 90%;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    overflow-y: scroll;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+    opacity: 0;
+    pointer-events: none;
+}
+
+
+.popup.open {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.popup.close {
+    transform: translate(-50%, 100%);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.popup.immediateclose {
+    transform: translate(-50%, 100%);
+    opacity: 0;
+    pointer-events: none;
+    transition: none;
+}
+
+
+.popup h2 {
+    text-align: center;
+    color: var(--readable-text);
+    font-size: 30px;
+    margin: 10px;
+}
+
+.popup h3 {
+    color: var(--readable-text);
+    font-size: 20px;
+    margin: 10px;
+    font-weight: 400px;
+}
+
+.popup input[type="file"] {
+    width: 100%;
+    padding: 8px;
+    font-family: "Indie Flower", cursive;
+}
+
+.popup textarea {
+    width: 100%;
+    min-height: 100px;
+    max-height: 190px;
+    padding: 8px;
+    resize: vertical;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    border: solid white;
+    border-radius: 20px;
+    font-size: 15px;
+    padding-right: 0px;
+    font-family: "Indie Flower", cursive;
+}
+
+.popup select {
+    border: solid white;
+    border-radius: 20px;
+    font-size: 16px;
+    font-family: "Indie Flower", cursive;
+}
+
+.popup button {
+    height: 35px;
+    background: white;
+    border-radius: 10px;
+    width: 100%;
+    cursor: pointer;
+    border: none;
+    font-family: "Indie Flower", cursive;
+    font-size: 20px;
+    height: 30px;
+    margin-top: 10px;
+    width: fit-content;
+    color: black;
+}
+
+.popup label {
+    font-family: "Indie Flower", cursive;
+    font-size: 20px;
+    color: var(--readable-text);
+}
+
+#entry-name,
+#edit-entry-name,
+#entry-content,
+#edit-entry-content,
+#edit-username,
+#edit-bio {
+    margin-top: 5px;
+    border: solid white;
+    width: 95%;
+    border-radius: 10px;
+    font-family: "Indie Flower", cursive;
+    height: 8%;
+    margin-top: 0px;
+    margin-bottom: 10px;
+}
+
+.entry-content-text {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-size: clamp(12px, 3vw, 24px);
+}
+
+#entry-name-label {
+    margin-top: -20px;
+}
+
+#edit-profile-form {
+    margin-top: -20px;
+}
+
+#change-password {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+.visibility-and-color {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+}
+
+#edit-visibility-and-color {
+    margin-bottom: 20px;
+}
+
+.select-color {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.select-entry-color,
+.edit-entry-color,
+.select-profile-color {
+    margin: 0 auto;
+    padding: 0px;
+    border-radius: 5px;
+    padding: 5px 4px 5px 4px;
+}
+
+.select-profile-color-container {
+    margin-bottom: 15px;
+}
+
+#edit-password-email {
+    width: 50%;
+}
+
+.edit-form {
+    margin: 0px;
+    margin-top: -20px;
+}
+
+#edit-entry-photo {
+    margin-bottom: 0px;
+    padding: 0px;
+    color: var(--readable-text);
+}
+
+#entry-submitted-photo {
+    margin: 0px;
+    transform: translateY(-15px);
+    padding: 0px;
+    color: var(--readable-text);
+}
+
+#delete-entry-photo-button.active {
+    background: var(--profile-color);
+    border: var(--profile-border-dark);
+    padding-bottom: 5px;
+}
+
+.edit-entry-visibility {
+    margin: 0px;
+    margin-top: -10px;
+}
+
+
+.entry-visibility {
+    margin-top: -10px;
+}
+
+#create-entry-submit-button,
+#create-entry-cancel-button {
+    margin-top: 0px;
+}
+
+
+
+
+
+/*NAVIGATION BARS*/
+.home-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow-y: auto;
+}
+
+
+
+.top-navigation-bar,
+.journal-top-navigation-bar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.journal-top-navigation-bar {
+    justify-content: flex-end;
+    transform: translateY(6px);
+}
+
+.journal-top-navigation-bar .material-symbols-outlined {
+    color: var(--profile-color);
+
+}
+
+.search-container {
+    position: relative;
+    flex: 1;
+    margin: 0 auto;
+    margin-left: 30px;
+
+}
+
+.search-bar {
+    width: 100%;
+    padding: 10px 10px 10px 40px;
+    border-radius: 99px;
+    border: 1px solid var(--profile-color);
+    background-color: var(--bg);
+    outline: none;
+    font-weight: 500;
+    box-sizing: border-box;
+    height: 20%;
+    transition: 0.2s border ease;
+    color: var(--text)
+}
+
+.search-icon {
+    color: var(--text);
+}
+
+.search-btn {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-64%);
+    /* vertically center inside input */
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.settingsButton {
+    flex-shrink: 0;
+    /* don't shrink */
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+}
+
+
+.search-bar:focus {
+    border: 3px solid var(--profile-color);
+}
+
+.search-bar::placeholder {
+    color: var(--text);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.feed-buttons-and-feed {
+    display: flex;
+    flex-direction: column;
+    margin-top: 4px;
+    margin-bottom: 30px;
+}
+
+.white-space {
+    height: 30px;
+}
+
+
+.bottom-navigation-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: clamp(50px, 7vh, 200px);
+    background: var(--profile-color);
+    border-radius: 99px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 10px;
+    box-sizing: border-box;
+    z-index: 1000;
+}
+
+.bottom-navigation-bar .material-symbols-outlined {
+    color: var(--readable-text);
+}
+
+
+
+/*BUTTONS*/
+.button {
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+/*WIDGETS*/
+
+.top-widgets {
+    margin-top: 30px;
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    position: fixed;
+    margin-top: 100px;
+    gap: 50px;
+}
+
+.widgets {
+    width: 200px;
+    border: pink;
+    display: flex;
+    flex-direction: column;
+    border-radius: 99px;
+}
+
+
+
+
+
+
+
+/*FORMS AND INPPUT*/
+.register-login-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    overflow-y: auto;
+    box-sizing: border-box;
+    margin-bottom: 70px;
+}
+
+.register-login-container button {
+    color: var(--text)
+}
+
+.reg-log-forms {
+    background: var(--form);
+    border-radius: 30px;
+    margin-top: 80px;
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 40px;
+}
+
+.reg-log-forms button {
+    height: 35px;
+    background: white;
+    border-radius: 10px;
+    width: 100%;
+    cursor: pointer;
+    border: none;
+    font-family: "Indie Flower", cursive;
+    font-size: 20px;
+    height: 30px;
+    margin-top: 10px;
+    flex-shrink: 0;
+}
+
+.reg-log-forms label {
+    color: black;
+}
+
+input {
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    height: 35px;
+    font-size: 15px;
+    margin-bottom: 15px;
+    padding-left: 10px;
+    font-family: "Indie Flower", cursive;
+}
+
+.password-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#togglePassword,
+#login-toggle-password {
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    height: 39px;
+    background: white;
+    width: 50px;
+    cursor: pointer;
+    margin-top: -1px;
+    align-content: center;
+    padding-top: 8px;
+}
+
+.password-and-toggle-container {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    flex-wrap: nowrap;
+    width: 100%;
+}
+
+.login-reg-here-txt {
+    font-size: 14px;
+    text-align: center;
+    color: rgb(161, 197, 255);
+    margin-top: 10px;
+}
+
+#have-account {
+    font-size: 27px;
+    margin-top: 30px;
+}
+
+.link {
+    color: rgb(142, 184, 250);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+#password,
+#login-password,
+#re-enter-password {
+    width: auto;
+    min-width: 0;
+    flex: 1;
+}
+
+#title {
+    margin-top: 20px;
+    flex: 1;
+    min-width: 0;
+    color: var(--profile-color);
+
+}
+
+#registration-submit-button,
+#login-submit-button,
+#visibility,
+#login-visibility,
+#re-enter-password-visibility {
+    color: black;
+}
+
+
+
+
+
+
+/*HOME PAGE / FEED*/
+
+.main-feed {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-self: center;
+    margin: 0px;
+    width: 90%;
+    margin-top: 30px;
+    overflow-y: scroll;
+    margin-bottom: 20px;
+}
+
+.feed-entries {
+    padding: 0px;
+    width: 100%;
+}
+
+.feed-entry-header,
+.found-users-header {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+}
+
+.feed-username {
+    font-size: 20px;
+}
+
+.entry-photo {
+    display: block;
+    max-width: 100%;
+    max-height: 400px;
+    height: auto;
+    margin: 16px auto;
+    border-radius: 2%;
+}
+
+.change-photo {
+    display: flex;
+    flex-direction: row;
+}
+
+.feed-profile-pic,
+.found-user-profile-pic {
+    border-radius: 100%;
+    width: 35px;
+    height: 35px;
+    margin-right: 10px;
+}
+
+
+#profile-pic-input {
+    margin-bottom: 0px;
+    color: var(--readable-text);
+}
+
+.feed-journal-entry {
+    border: solid rgb(107, 163, 255);
+    height: fit-content;
+    border-radius: 20px;
+    background: rgba(122, 170, 247, 0.3);
+    padding: 10px 15px;
+    margin-bottom: 30px;
+}
+
+
+.feed-journal-entry h3 {
+    font-size: 20px;
+}
+
+.likes-and-comments-and-date {
+    margin-bottom: 20px;
+    margin-left: 0px;
+    margin-top: 30px;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.likes-and-comments {
+    display: flex;
+    flex-direction: row;
+    margin-left: auto;
+}
+
+.commentsButton {
+    margin-left: 20px;
+    cursor: pointer;
+    margin-top: -2px;
+    transition: height 0.3s ease;
+}
+
+
+
+
+
+
+
+/*COMMENTS*/
+
+/*BLACK OPACITY BACKGROUND*/
+.comments-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 1000;
+}
+
+
+.comments-panel {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 80%;
+    background: var(--bg);
+    border-radius: 20px 20px 0 0;
+    transform: translateY(100%);
+    transition: transform 0.35s ease;
+    z-index: 1001;
+    display: flex;
+    flex-direction: column;
+}
+
+.comments-panel p {
+    color: var(--text);
+}
+
+.comments-panel h3,
+.comments-panel span {
+    color: var(--text);
+}
+
+.comments-panel.open {
+    transform: translateY(0);
+}
+
+.comments-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.comments-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+    font-size: 20px;
+}
+
+
+.comments-header h1 {
+    margin-top: 10px;
+    color: var(--profile-color);
+}
+
+#comment-input {
+    width: 90%;
+
+}
+
+#submit-comment {
+    border-radius: 20px;
+    width: 10%;
+    height: fit-content;
+    border: solid var(--profile-color);
+    margin-top: 10px;
+    color: var(--text);
+    font-family: "Indie Flower", cursive;
+}
+
+.comments-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 15px;
+    font-size: 16px;
+    color: black;
+}
+
+.add-comment-form {
+    display: flex;
+    padding: 10px;
+    gap: 10px;
+    border-top: 1px solid #ddd;
+}
+
+.comment-user-photo {
+    border-radius: 100%;
+    width: 35px;
+    height: 35px;
+    margin-right: 10px;
+}
+
+.comment-pfp-and-username {
+    display: flex;
+    flex-direction: row;
+    gap: 2px;
+}
+
+.each-comment {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+}
+
+#close-comments {
+    font-size: 40px;
+    color: var(--profile-color);
+
+
+}
+
+.comment-no-heart {
+    width: 100%;
+
+}
+
+.comment-text,
+.edit-comment-input {
+    margin-bottom: 16px;
+    margin-top: 16px;
+    vertical-align: middle;
+    width: 90%;
+    resize: vertical;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+}
+
+.comment-text {
+    color: var(--text);
+    font-size: clamp(20px, 5vw, 25px);
+}
+
+.edit-comment-input {
+    color: black;
+}
+
+.comment-with-heart {
+    margin-top: 35px;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 0px;
+    height: fit-content;
+    color: var(--text);
+}
+
+.comment-actions {
+    display: none;
+    gap: 5px;
+    margin-top: -11px;
+}
+
+.comment-item:hover .comment-actions {
+    display: flex;
+}
+
+.comment-actions button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: var(--profile-color);
+}
+
+.comment-likes-amount {
+    font-size: 20px;
+    margin-left: 5px;
+    margin-top: 19px;
+}
+
+.comments-profile-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.likesButton {
+    cursor: pointer;
+    margin-left: 20px;
+    margin-top: -5px;
+    margin-bottom: 0px;
+    font-size: 20px;
+}
+
+.entry-likes-amount {
+    margin-left: 10px;
+    margin-top: -5px;
+}
+
+
+.entry-comments-amount {
+    margin-left: 10px;
+    margin-top: -5px;
+}
+
+
+
+
+
+
+
+
+/*JOURNAL COVER OPTIONS*/
+.journal-covers-options {
+    display: flex;
+    flex-direction: row;
+    overflow: scroll;
+    margin-left: 0px;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.journal-cover.selected {
+    border: var(--profile-border-dark);
+    border-radius: 50px;
+}
+
+/*USER'S JOURNALS SECTION*/
+.users-journals-container {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+}
+
+.users-journals-section {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-bottom: 90px;
+    align-items: center;
+
+}
+
+.users-journals-section h1 {
+    width: fit-content;
+    text-align: center;
+    margin: 0 auto;
+    color: var(--profile-color);
+}
+
+
+.users-journals {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+    width: 100%;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.users-journals .journal-cover {
+    width: 30%;
+    padding: 0px;
+    position: relative;
+    /* Ensures buttons are positioned relative to this cover */
+    display: block;
+}
+
+.journal-cover {
+    border-radius: 30px;
+    padding: 10px;
+    display: block;
+}
+
+.create-journal-popup .journal-cover,
+.edit-journal-popup .journal-cover {
+    border-radius: 30px;
+    width: 60%;
+    height: auto;
+    padding: 10px;
+    display: block;
+    object-fit: cover;
+    object-position: center top;
+    margin-bottom: 0px;
+    margin-right: -20px;
+    background-color: none;
+    position: relative;
+    /* Ensure buttons are positioned relative to the journal cover */
+}
+
+.create-journal-popup h3 {
+    margin-bottom: -20px;
+}
+
+/*DELETE JOURNAL AND ENTRY POPUP ICONS*/
+.delete-entry-btn,
+.edit-entry-btn,
+.delete-journal-btn,
+.edit-journal-btn {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: var(--profile-color);
+    color: var(--readable-text);
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease, pointer-events 0s ease 0.2s;
+    font-size: 20px;
+    z-index: 10;
+}
+
+.heading-and-visibility {
+    display: flex;
+    flex-direction: row;
+    gap: 0px;
+}
+
+#entry-visibility {
+    margin: 10px;
+    cursor: pointer;
+}
+
+#entry-title {
+    margin: 0px;
+    font-size: 20px;
+    margin-top: 10px;
+}
+
+.each-user-journal {
+    position: relative;
+    border-radius: 20px;
+    padding: 10px;
+    width: 300px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.each-user-journal .journal-cover {
+    width: 100%;
+}
+
+.each-user-journal h3 {
+    margin-top: -15%;
+}
+
+.users-journals .journal-cover:hover .edit-journal-btn,
+.users-journals .journal-cover:hover .delete-journal-btn {
+    opacity: 1;
+    /* Show buttons */
+    pointer-events: auto;
+    /* Make buttons interactive */
+    transition: opacity 0.2s ease, pointer-events 0s ease 0s;
+    /* Instant interaction after fade-in */
+}
+
+
+.each-user-journal:hover .delete-journal-btn,
+.each-user-journal:hover .edit-journal-btn,
+.each-friend-request:hover .delete-request-btn,
+.journal-entry:hover .delete-entry-btn,
+.journal-entry:hover .edit-entry-btn {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+
+.delete-journal-btn,
+.delete-entry-btn {
+    right: 8px;
+}
+
+
+.edit-journal-btn,
+.edit-entry-btn {
+    right: 44px;
+    margin-right: 10px;
+}
+
+.edit-entry-btn,
+.delete-entry-btn {
+    transform: translateY(-30%);
+}
+
+.edit-entry-btn,
+.delete-entry-btn {
+    margin-top: 20px;
+}
+
+
+#edit-entry-content {
+    font-family: "Indie Flower", cursive;
+}
+
+
+
+/*work on the no entries text*/
+#no-journals-txt,
+#no-entries-txt {
+    margin: auto;
+    /* Horizontally centers the element */
+    margin-top: 20%;
+    width: fit-content;
+    /* Ensure the element has width based on content */
+    text-align: center;
+    color: var(--profile-color);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/*SIDEBAR*/
+.sidebar {
+    background: rgba(var(--profile-color-r), var(--profile-color-g), var(--profile-color-b), 0.3);
+    height: calc(100dvh - 50px - 60px);
+    width: 15%;
+    border-radius: 20px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding: 5px;
+    position: relative;
+    transition: width 0.3s ease;
+}
+
+.sidebar.collapsed {
+    width: 0px;
+}
+
+#toggle-sidebar {
+    position: absolute;
+    top: 50%;
+    right: 0px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: none;
+    background: white;
+    color: var(--profile-color);
+    cursor: pointer;
+    z-index: 9999;
+    transition: transform 0.3s ease;
+}
+
+.sidebar .sidebar-each-user-journal img {
+    border-radius: 30px;
+    padding: 10px;
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    max-height: 100%;
+    box-sizing: border-box;
+    background: none;
+}
+
+.sidebar .sidebar-each-user-journal:hover {
+    transform: translateY(-2px);
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.sidebar-each-user-journal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+
+/*STACKED ENTRIES + ADD ENTRY*/
+.journal-entries-container {
+    display: flex;
+    flex-direction: row;
+    overflow: scroll;
+    height: calc(100dvh - 50px - 30px);
+    position: static;
+}
+
+#add-entry-button {
+    position: sticky;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0px auto;
+    width: 5%;
+    cursor: pointer;
+}
+
+.add-and-theme {
+    display: flex;
+    flex-direction: row;
+}
+
+#entry-theme-toggle {
+    margin-top: 1px;
+}
+
+.journal-entries-and-add-sign-container {
+    display: flex;
+    flex-direction: column;
+    height: 94%;
+    width: 100%;
+    overflow: auto;
+    position: static;
+
+}
+
+.journal-stacked-entries {
+    flex: 1;
+    overflow: visible;
+    padding: 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: static;
+}
+
+
+
+
+
+/*ENTRY DESIGN*/
+.journal-entry {
+    border: solid rgb(107, 163, 255);
+    height: fit-content;
+    border-radius: 20px;
+    background: rgba(122, 170, 247, 0.3);
+    padding: 10px 15px;
+    position: relative;
+    margin-bottom: 5px;
+}
+
+
+
+
+
+
+/*PROFILE PAGE*/
+
+.profile-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 30px;
+    padding-top: 20px;
+    height: fit-content;
+}
+
+
+.profile-image {
+    border-radius: 20%;
+    width: 160px;
+    height: 160px;
+    object-fit: cover;
+    border: var(--profile-border);
+    background: rgba(161, 197, 255, 0.3);
+    flex-shrink: 0;
+    margin-bottom: 20px;
+}
+
+.profile-top-and-settings {
+    display: flex;
+    flex-direction: row;
+}
+
+.profile-page-top {
+    width: 100%;
+    height: fit-content;
+    margin: 0px;
+    padding: 0px;
+    display: flex;
+    flex-direction: row;
+}
+
+.user-bio {
+    margin-left: 0px;
+    color: var(--profile-color);
+    width: 100%;
+    height: fit-content;
+    margin-top: 0px;
+    padding: 0px;
+    resize: vertical;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    font-size: 20px;
+}
+
+.username-and-statistics {
+    display: flex;
+    flex-direction: column;
+    margin: 0px;
+    padding: 0px;
+}
+
+.user-username {
+    margin-left: 20px;
+    font-size: 30px;
+    color: var(--profile-color);
+    height: fit-content;
+}
+
+#admin-username {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+#admin-crown {
+    font-size: 30px;
+    margin: 0px;
+    padding: 0px;
+    color: var(--profile-color)
+}
+
+.user-statistics {
+    display: flex;
+    flex-direction: row;
+    margin: 0px;
+    padding: 0px;
+    justify-content: space-between;
+    gap: 40px;
+    margin-left: 40px;
+    margin-top: 5px;
+}
+
+.user-statistics-amount {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-number {
+    height: fit-content;
+    width: fit-content;
+    transform: translateY(20px);
+    padding: 0px;
+    color: var(--profile-color);
+}
+
+.user-statistics-amount h1 {
+    margin-top: 0px;
+    color: var(--profile-color);
+}
+
+.profile-buttons,
+.feed-buttons {
+    width: 90%;
+    padding: 10px;
+    height: fit-content;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.profile-buttons button,
+.feed-buttons button {
+    height: 35px;
+    background: white;
+    border-radius: 20px;
+    width: fit-content;
+    border: var(--profile-border-dark);
+    background: var(--profile-color);
+    font-family: "Indie Flower", cursive;
+    font-size: 20px;
+    height: 30px;
+    width: fit-content;
+    padding: 10px 20px 30px 20px;
+    color: var(--readable-text);
+    text-align: center;
+    font-size: clamp(15px, 2.5vw, 20px);
+
+}
+
+.feed-buttons {
+    margin: 0px;
+    margin-bottom: -10px;
+    align-self: center;
+}
+
+#recent-entries-heading {
+    margin: 0px;
+    padding: 0px;
+    text-align: left;
+    color: var(--profile-color);
+}
+
+.recent-entries-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.users-recent-entry:last-child {
+    margin-bottom: 50px;
+}
+
+
+.users-recent-entry {
+    border: solid rgb(107, 163, 255);
+    height: fit-content;
+    border-radius: 20px;
+    background: rgba(122, 170, 247, 0.3);
+    padding: 10px 15px;
+    margin-bottom: 30px;
+}
+
+
+
+
+
+
+
+
+
+
+/*CUSTOM ALERTS AND CONFIRMATIONS*/
+.alerts,
+.confirmation {
+    background: var(--profile-color);
+    border-radius: 20px;
+    border: var(--profile-border-dark);
+    width: 60%;
+    height: fit-content;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    color: var(--readable-text);
+    opacity: 0px;
+    z-index: 9999;
+    transition: opacity 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.alerts.open,
+.confirmation.open {
+    opacity: 1;
+}
+
+.alerts.close,
+.confirmation.close {
+    opacity: 0;
+    transform: translate(-50%, -50%);
+}
+
+.alerts.immediateclose,
+.confirmation.immediateclose {
+    opacity: 0;
+    transform: translate(-50%, -50%);
+    transition: none;
+}
+
+.alerts h1 {
+    color: var(--readable-text);
+    margin: 0px;
+    padding: 0px;
+    font-size: 30px;
+
+}
+
+.alerts h2,
+.confirmation h2 {
+    margin: 0px;
+    padding: 0px;
+    color: var(--readable-text);
+    width: 100%;
+    box-sizing: border-box;
+    word-break: break-word;
+    white-space: normal;
+
+}
+
+.alerts button {
+    align-self: center;
+    margin-top: 20px;
+}
+
+.confirmation button {
+    padding: 5px 20px 30px 20px;
+}
+
+.confirmation-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+/*USERS SEARCHING AND ADDING*/
+.search-for-users {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: fit-content;
+    margin: 0px;
+    padding-top: 0px;
+}
+
+.found-users-container {
+    width: 90%;
+    height: fit-content;
+    margin: 0px;
+    padding: 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 15px;
+    align-self: center;
+    margin-top: 40px;
+}
+
+.each-found-user {
+    border: 3px solid var(--profile-color);
+    height: fit-content;
+    border-radius: 20px;
+    background: rgba(var(--profile-color-r), var(--profile-color-g), var(--profile-color-b), 0.3);
+    padding: 10px 10px;
+}
+
+.each-friend-request {
+    border: var(--profile-border-dark);
+    color: var(--readable-text);
+    height: fit-content;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.50);
+    width: 100%;
+    padding-left: 10px;
+    padding-top: 10px;
+}
+
+.found-users-username-and-bio {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 0px;
+}
+
+.found-username {
+    font-size: 20px;
+    margin-top: 3px;
+}
+
+.found-bio {
+    margin-top: 0px;
+}
+
+.found-users-username-and-add-friend-button {
+    display: flex;
+    flex-direction: row;
+}
+
+.add-friend-button {
+    margin-top: 2px;
+    margin-left: 10px;
+    cursor: pointer;
+    color: var(--text);
+}
+
+#friend-request-person-alert {
+    color: var(--readable-text);
+}
+
+/*.add-friend-button .material-symbols-outlined{
+   color: var(--readable-text);
+
+}*/
+
+/*YOUR FRIENDS*/
+.show-users-friends-container {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 0px;
+
+}
+
+.show-users-friends-container h1 {
+    margin-top: 0px;
+    text-align: center;
+    margin-left: 30%;
+}
+
+.show-users-friends {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.your-friends-and-friend-request-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.your-friends-and-friend-request-button h1 {
+    color: var(--profile-color);
+    margin: 0 auto;
+}
+
+.friend-request-button {
+    cursor: pointer;
+}
+
+.close-friend-request-button {
+    align-self: center;
+}
+
+.friend-request-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+#home-toggle-theme,
+#searching-toggle-theme {
+    transform: translateY(-6px);
+    color: var(--profile-color);
+
+}
+
+#profile-toggle-theme {
+    transform: translate(20px, -82px);
+    color: var(--profile-color);
+}
+
+
+
+
+
+
+
+
+@media (max-width: 480px) {
+    .profile-page-top {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        width: 100%;
+        margin-left: 24px;
+    }
+
+    .user-username {
+        align-self: center;
+        margin: 0px;
+    }
+
+    #admin-username {
+        margin: 0 auto;
+    }
+
+    .user-statistics {
+        transform: translateY(-10px);
+        margin: 0px;
+    }
+
+    .user-bio {
+        text-align: center;
+        margin-top: -25px;
+    }
+
+    .profile-image {
+        width: 40%;
+        height: 40%;
+        border-radius: 100%;
+        margin: 0px;
+    }
+
+    .profile-buttons {
+        flex-wrap: nowrap;
+        justify-content: space-evenly;
+        width: 100%;
+        margin: 0px;
+        padding: 0px;
+        gap: 20px;
+        overflow-x: scroll;
+        overflow-y: hidden;
+    }
+
+    .profile-buttons {
+        width: auto;
+        white-space: nowrap;
+        flex-wrap: nowrap;
+        min-width: 0;
+    }
+
+    #recent-entries-heading {
+        font-size: 33px;
+    }
+
+    .users-recent-entry:last-child {
+        margin-bottom: 150px;
+    }
+
+    .feed-journal-entry:last-child {
+        margin-bottom: 130px;
+    }
+
+    .register-login-container {
+        align-items: center;
+        margin: 0 auto;
+        padding: 5px;
+        overflow-x: hidden;
+    }
+
+    #togglePassword,
+    #login-toggle-password {
+        padding-bottom: 35px;
+    }
+
+    .popup {
+        width: 70%;
+        height: 70%;
+    }
+
+    .journal-cover {
+        width: 70%;
+        height: 70%;
+        max-width: 400px;
+        padding: 15px;
+    }
+
+    .alerts,
+    .confirmation {
+        height: fit-content
+    }
+
+    body {
+        overflow-y: auto;
+    }
+
+    .link {
+        margin-bottom: 120px;
+    }
+
+    .feedback-form {
+        height: fit-content;
+    }
+
+    .journal-top-navigation-bar {
+        transform: translateY(9px);
+    }
+
+    .profile-top-and-settings {
+        display: flex;
+        flex-direction: row;
+    }
+
+    #profile-toggle-theme {
+        transform: translate(1px, -143px);
+    }
+
+    .visibility-and-color {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .select-color,
+    .edit-entry-visibility,
+    .entry-visibility {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-shrink: 1;
+        min-width: 0;
+    }
+
+    .change-password {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .change-password input {
+        width: 90%;
+    }
+
+    #edit-password-email {
+        width: 90%
+    }
+
+    .each-user-journal {
+        width: 50%;
+        height: auto;
+    }
+
+    .users-journals{
+        gap: 0px;
+    }
+}
+
+/* Desktop (has hover) */
+@media (hover: hover) {
+    .tooltip {
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .hover-target:hover .tooltip {
+        opacity: 1;
+        pointer-events: auto;
+    }
+}
+
+
+
+
+
+/* Touch devices (no hover, like iPhone) */
+@media (hover: none) {
+    .tooltip {
+        opacity: 1;
+        pointer-events: auto;
+    }
+}
+
+.tooltip {
+    display: none;
+    position: absolute;
+    background: rgba(161, 197, 255, 0.95);
+    padding: 6px 10px;
+    border-radius: 10px;
+    font-size: 14px;
+    white-space: nowrap;
+    margin-top: 6px;
+}
+
+/* Tap-to-toggle (mobile) */
+.edit-entry-wrapper.active .tooltip {
+    display: block;
+}
+
+/* Hover (desktop only) */
+@media (hover: hover) {
+    .edit-entry-wrapper:hover .tooltip {
+        display: block;
+    }
+}

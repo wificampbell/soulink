@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <title>Journaling App</title>
+    <link rel="stylesheet" href="style.css">
+    <!--ICONS-->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+</head>
+
+<body>
+
+    <!--HOME PAGE-->
+
+    <div class="popup alerts">
+        <h1 class="alert-heading"></h1>
+        <h2 class="alert-description"></h2>
+        <button type="button" class="button exit-alert">Exit</button>
+    </div>
+
+    <div class="popup confirmation">
+        <h2 class="confirmation-txt"></h2>
+        <div class="confirmation-buttons">
+            <button type="button" class="button yes-confirmation">Yes</button>
+            <button type="button" class="button exit-confirmation">No</button>
+        </div>
+    </div>
+
+    <h1 id="title">~𖥔☾S𖤓ulink☽𖥔~</h1>
+
+    <section class="home-page">
+        <section class="top-navigation-bar">
+            <div class="search-container">
+                <input class="search-bar" placeholder="Search for Friends" type="text" />
+                <button class="search-btn">
+                    <span class="search-icon material-symbols-outlined">search</span>
+                </button>
+            </div>
+            <button type="button" class="settingsButton button">
+                <span id="home-toggle-theme" class="button toggle-theme material-symbols-outlined">light_mode</span>
+            </button>
+        </section>
+
+
+
+        <section class="feed-buttons-and-feed">
+            <div class="feed-buttons">
+                <button type="button" class="button all-feed-button">All Feed</button>
+                <button type="button" class="button my-friends-feed-button">My Friends</button>
+            </div>
+            <section class="main-feed" style="display:none">
+                <div class="feed-entries">
+
+                </div>
+            </section>
+
+        </section>
+        <!--- <section class="top-widgets">
+            <button tyoe="button" class="calendarWidget button widgets">
+                <h1>Calendar</h1>
+                <span class="material-symbols-outlined">
+                    calendar_month
+                </span>
+            </button>
+
+            <button tyoe="button" class="calendarWidget button widgets">
+                <h1>Friends</h1>
+                <span class="material-symbols-outlined">
+                    calendar_month
+                </span>
+            </button>
+
+            <button tyoe="button" class="calendarWidget button widgets">
+                <h1>Hello</h1>
+                <span class="material-symbols-outlined">
+                    calendar_month
+                </span>
+            </button>
+
+        </section>
+        
+        -->
+    </section>
+
+    <!--FINDING FRIENDS-->
+    <section class="search-for-users" style="display:none">
+        <section class="top-navigation-bar">
+            <div class="search-container">
+                <input class="search-bar finding-users-search-bar" placeholder="Search for Friends" type="text" />
+                <button class="search-btn finding-users-search-btn">
+                    <span class="material-symbols-outlined">search</span>
+                </button>
+            </div>
+            <button type="button" class="settingsButton button">
+                <span id="searching-toggle-theme"
+                    class="button toggle-theme material-symbols-outlined">light_mode</span>
+            </button>
+        </section>
+        <div class="found-users-container"></div>
+
+    </section>
+
+    <!--JOURNALING-->
+    <section class="users-journals-container" style="display:none">
+        <section class="journal-top-navigation-bar">
+            <button tyoe="button" class="add-journal-button button">
+                <span class="material-symbols-outlined">
+                    add
+                </span>
+            </button>
+            <button type="button" class="settingsButton button">
+                <span id="journal-toggle-theme" class="button toggle-theme material-symbols-outlined">light_mode</span>
+            </button>
+        </section>
+        <section class="users-journals-section">
+            <h1>Your Journals:</h1>
+            <section class="users-journals"></section>
+            <h2 id="no-journals-txt"></h2>
+        </section>
+    </section>
+
+
+
+    <section class="popup edit-journal-popup">
+        <h2>Edit Your Journal</h2>
+        <h3>Select New Cover</h3>
+        <section class="journal-covers-options">
+            <img src="Assets/Journal Covers/HelloKitty.PNG" alt="" class="journal-cover">
+            <img src="Assets/Journal Covers/MonsterHigh.PNG" alt="" class="journal-cover">
+            <img src="Assets/Journal Covers/StandardYellow.PNG" alt="" class="journal-cover">
+        </section>
+        <label for="edit-journal-name-input">Your Journal's New Name: </label>
+        <input type="text" class="edit-journal-name-input" name="journal-name-input"
+            placeholder="My New Journal"></input>
+        <div class="journal-buttons">
+            <button type="submit" id="submit-edit-journal-button" id="submit">Edit Journal</button>
+            <button type="button" id="cancel-edit-journal-button">Cancel</button>
+        </div>
+    </section>
+
+
+    <div class="create-journal-overlay">
+        <section class="popup create-journal-popup">
+            <h2>Create A Journal</h2>
+            <h3>Select Cover</h3>
+            <section class="journal-covers-options">
+                <img src="Assets/Journal Covers/HelloKitty.PNG" alt="" class="journal-cover">
+                <img src="Assets/Journal Covers/MonsterHigh.PNG" alt="" class="journal-cover">
+                <img src="Assets/Journal Covers/StandardYellow.PNG" alt="" class="journal-cover">
+            </section>
+            <label for="journal-name-input">Name Your Journal: </label>
+            <input type="text" class="journal-name-input" name="journal-name-input"
+                placeholder="My New Journal"></input>
+            <div class="journal-buttons">
+                <button type="submit" id="create-journal-button" id="submit">Create Journal</button>
+                <button type="button" id="cancel-journal-button">Cancel</button>
+            </div>
+        </section>
+    </div>
+
+
+
+
+    <!--INSIDE EACH JOURNAL-->
+    <section class="journal-entries-container" style="display:none">
+        <div class="sidebar">
+            <button id="toggle-sidebar">➤</button>
+            <div class="users-journals" id="sidebar-journals"></div>
+        </div>
+
+        <div class="journal-entries-and-add-sign-container">
+            <div class="add-and-theme">
+                <span class="material-symbols-outlined" id="add-entry-button">
+                    add
+                </span>
+                <button type="button" class="settingsButton button">
+                    <span id = "entry-theme-toggle" class="button toggle-theme material-symbols-outlined">light_mode</span>
+                </button>
+            </div>
+            <h2 id="no-entries-txt" style="display:none"></h2>
+            <div class="journal-stacked-entries"></div>
+
+
+        </div>
+
+
+        <!--ENTRIES-->
+        <section class="popup create-entry-popup">
+            <h2>Add A New Entry!</h2>
+            <label id="entry-name-label" for="entry-name">Title: </label>
+            <input type="text" id="entry-name" name="entry-name" required>
+            <label for="entry-content">What's On Your Mind?</label>
+            <textarea id="entry-content" name="entry-content" required></textarea>
+            <div class="visibility-and-color">
+                <div class="select-color">
+                    <label for="select-entry-color">Select An Entry Color:</label>
+                    <input type="color" class="select-entry-color" name="select-entry-color" value="#a1c5ff">
+                </div>
+                <div class="entry-visibility">
+                    <label>
+                        <input type="radio" name="feed-visibility" value="public" checked>
+                        Public
+                    </label>
+                    <label>
+                        <input type="radio" name="feed-visibility" value="private">
+                        Private
+                    </label>
+                </div>
+            </div>
+            <label for="photo">Upload an Image (optional)</label>
+            <input type="file" id="entry-submitted-photo" name="entry-submitted-photo" accept="image/*" />
+
+            <div class="entry-buttons">
+                <button type="submit" id="create-entry-submit-button">Submit</button>
+                <button type="button" id="create-entry-cancel-button">Cancel</button>
+            </div>
+
+        </section>
+
+        <section class="popup edit-entry-popup">
+            <h2>Edit Your Entry!</h2>
+            <div class="edit-form">
+                <label for="edit-entry-name">New Title: </label>
+                <input type="text" id="edit-entry-name" name="entry-name" required>
+                <label for="edit-entry-content">What's On Your Mind?</label>
+                <textarea id="edit-entry-content" name="entry-content" required></textarea>
+                <div class="visibility-and-color" id="edit-visibility-and-color">
+                    <div class="select-color">
+                        <label for="edit-entry-color">Select An Entry Color:</label>
+                        <input type="color" class="edit-entry-color" name="edit-entry-color" value="#a1c5ff">
+                    </div>
+                    <div class="edit-entry-visibility">
+                        <label>
+                            <input type="radio" name="edit-feed-visibility" value="public">
+                            Public
+                        </label>
+                        <label>
+                            <input type="radio" name="edit-feed-visibility" value="private" checked>
+                            Private
+                        </label>
+                    </div>
+                </div>
+                <label for="photo">Change Photo</label>
+                <input type="file" id="edit-entry-photo" name="edit-entry-photo" accept="image/*" />
+                <div class="entry-buttons">
+                    <button type="submit" id="submit-edit-entry-button">Update</button>
+                    <button type="button" id="cancel-edit-entry-button">Cancel</button>
+                    <button type="button" id="delete-entry-photo-button">Delete Photo</button>
+                </div>
+            </div>
+
+        </section>
+    </section>
+
+
+    <!--REGISTER/LOGIN page-->
+    <section class="register-login-container" style="display:none">
+        <h1 id="reg-or-log">Please Register or Login!</h1>
+
+
+        <!--REGISTER page-->
+        <form class="reg-log-forms" id="registration-form">
+            <label for="first-name">First Name: </label>
+            <input type="text" id="first-name" name="first-name" placeholder="First Name" required>
+
+            <label for="last-name">Last Name: </label>
+            <input type="text" id="last-name" name="last-name" placeholder="Last Name" required>
+
+            <label for="email">Email: </label>
+            <input type="email" id="email" name="email" required placeholder="example@example.com">
+
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" placeholder="Username" required>
+
+            <label for="password">Password:</label>
+            <div class="password-and-toggle-container">
+                <input type="password" id="password" name="password" required placeholder="Enter your password">
+                <button type="button" class="button" id="togglePassword">
+                    <span class="material-symbols-outlined" id="visibility">
+                        visibility_off
+                    </span>
+                </button>
+            </div>
+            <label for="re-enter password">Re-enter Password:</label>
+            <div class="password-and-toggle-container">
+                <input type="password" id="re-enter-password" name="re-enter-password" required
+                    placeholder="Re-enter your password">
+                <button type="button" class="button" id="togglePassword">
+                    <span class="material-symbols-outlined" id="re-enter-password-visibility">
+                        visibility_off
+                    </span>
+                </button>
+            </div>
+
+            <button type="submit" id="registration-submit-button" id="submit">Submit</button>
+
+        </form>
+
+        <!--LOGIN page-->
+        <form class="reg-log-forms" id="login-form" style="display:none">
+            <label for="username">Username:</label>
+            <input type="text" id="login-username" name="username" required placeholder="Enter your username">
+
+            <label for="password">Password:</label>
+            <div class="password-and-toggle-container">
+                <input type="password" id="login-password" name="password" required placeholder="Enter your password">
+                <button type="button" class="button" id="login-toggle-password">
+                    <span class="material-symbols-outlined" id="login-visibility">
+                        visibility_off
+                    </span>
+                </button>
+            </div>
+            <button type="submit" id="login-submit-button" id="submit">Submit</button>
+
+        </form>
+
+        <section class="login-reg-here-txt">
+            <h1 id="have-account">Don't Have An Account?</h1>
+            <h2 class="link">Log In Here!</h2>
+        </section>
+
+    </section>
+
+    <!--PROFILE PAGE-->
+    <section class="profile-page" style="display:none">
+        <div class="profile-top-and-settings">
+            <div class="profile-page-top">
+                <img src="Client Uploads/Profile Pics/default-profile.jpg" class="profile-image" id="profileImage">
+                <div class="username-and-statistics">
+                    <div id="admin-username">
+                        <h3 class="user-username">username</h3>
+                        <h4 id="admin-crown">ᥫ᭡.</h4>
+                    </div>
+                    <div class="user-statistics">
+                        <div class="user-statistics-amount" id="user-statistics-friends-amount">
+                            <h1 class="profile-number amount-of-friends">0</h1>
+                            <h1 id="friends-header">Friends</h1>
+                        </div>
+                        <div class="user-statistics-amount" id=user-statistics-entries-amount>
+                            <h1 class="profile-number amount-of-entries">0</h1>
+                            <h1 id="entries-header">Entries</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button type="button" class="settingsButton button">
+                <span id="profile-toggle-theme" class="button toggle-theme material-symbols-outlined">light_mode</span>
+            </button>
+        </div>
+        <h3 class="user-bio">bio</h3>
+        <div class="profile-buttons">
+            <button type="button" class="button edit-profile-button">Edit Profile</button>
+            <button type="button" class="button my-journals-button">My Journals</button>
+            <button type="button" class="button feedback-button">Feedback</button>
+            <button type="button" class="button logout-button">Logout</button>
+        </div>
+        <h1 id="recent-entries-heading">Recent Public Entries:</h1>
+        <section class="recent-entries-container"></section>
+
+
+        <!-- Hidden file input for uploading profile picture -->
+        <input type="file" id="profileImageInput" accept="image/*" style="display:none">
+    </section>
+
+    <!--SHOW FRIENDS-->
+    <section class="show-users-friends-container" style="display:none">
+        <div class="your-friends-and-friend-request-button">
+            <h1>Your Friends:</h1>
+            <span class="friend-request-button material-symbols-outlined">
+                notifications
+            </span>
+        </div>
+        <section class="show-users-friends"> </section>
+
+        <section class="popup friend-request-popup">
+            <h2>Your Friend Requests:</h2>
+            <div class="friend-request-container"></div>
+            <button type="button" class="button close-friend-request-button">Exit</button>
+        </section>
+    </section>
+
+
+    <!-- EDIT PROFILE -->
+    <section class="popup edit-profile-page-popup">
+        <h2>Edit Your Profile</h2>
+
+        <form id="edit-profile-form">
+            <label for="profile-pic-input">Profile Picture:</label>
+            <input type="file" id="profile-pic-input" accept="image/*">
+
+            <label for="edit-username">Username:</label>
+            <input type="text" id="edit-username" name="username" placeholder="Enter new username" required>
+
+            <label for="edit-bio">Bio:</label>
+            <textarea id="edit-bio" name="bio" maxlength="490" placeholder="Enter your bio" required></textarea>
+
+            <div class="select-profile-color-container">
+                <label for="select-profile-color">Profile Color:</label>
+                <input type="color" class="select-profile-color" name="select-profile-color" value="#a1c5ff">
+            </div>
+
+            <div id="change-email>">
+                <label for="edit-email">Change Email:</label>
+                <input type="email" id="edit-email" name="edit-email" placeholder="Enter new email">
+            </div>
+
+            <label for="confirmation-email" id="change-password-header">Change Password:</label>
+            <div class="change-password">
+                <input type="email" id="edit-password-email" name="confirmation-email"
+                    placeholder="Enter your email (authorization)">
+                <input type="password" id="edit-password" name="edit-password" placeholder="Enter new password">
+            </div>
+            <button type="submit" id="save-profile-button">Save Changes</button>
+            <button type="button" id="cancel-edit-profile">Cancel</button>
+        </form>
+    </section>
+
+
+    <section class="users-friends-container" style="display:none">
+
+    </section>
+
+    <!--COMMENTS-->
+    <div class="comments-overlay"></div>
+
+    <section class="comments-panel">
+        <div class="comments-header">
+            <h1>Comments</h1>
+            <button class="button" id="close-comments">✕</button>
+        </div>
+
+        <div class="comments-list"></div>
+
+        <form class="add-comment-form">
+            <img src="Client Uploads/Profile Pics/default-profile.jpg" class="comments-profile-image">
+            <input type="text" id="comment-input" placeholder="Write a comment..." />
+            <button type="submit" class="button" id="submit-comment">Post</button>
+        </form>
+    </section>
+
+
+    <!--FEEDBACK FORM-->
+    <form class="popup feedback-form">
+        <label for="feedback-options">Feedback Category:</label>
+        <select name="feedback-options" id="feedback-options" required>
+            <option value="Bug/Error">Bug/Error</option>
+            <option value="Possible Improvements">Possible Improvements</option>
+            <option value="Questions/Concerns">Questions/Concerns</option>
+            <option value="Other">Other</option>
+        </select>
+        <label for="feedback-content">Please Provide Your Feedback!</label>
+        <textarea id="feedback-content" name="feedback-content" required></textarea>
+        <div class="entry-buttons">
+            <button type="submit" class="button" id="submit-feedback">Send</button>
+            <button type="button" class="button" id="close-feedback">Exit</button>
+
+        </div>
+    </form>
+
+
+
+    <!--BOTTOM NAVIGATION-->
+    <section class="bottom-navigation-bar">
+        <button tyoe="button" class="homeButton button">
+            <span class="material-symbols-outlined">
+                home
+            </span>
+        </button>
+
+        <button tyoe="button" class="journalButton button">
+            <span class="material-symbols-outlined">
+                book_ribbon
+            </span>
+        </button>
+
+
+        <button tyoe="button" class="profileButton button">
+            <span class="material-symbols-outlined">
+                account_circle
+            </span>
+        </button>
+
+
+    </section>
+
+
+</body>
+<script src="script.js"></script>
+
+</html>
